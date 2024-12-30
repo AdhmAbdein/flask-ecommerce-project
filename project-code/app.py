@@ -11,22 +11,16 @@ from config import Config
 # Initialize the Flask app
 app = Flask(__name__)
 app.config.from_object(Config)
-from flask_migrate import Migrate
-
-# Initialize Flask-Migrate
-migrate = Migrate(app, db)
 
 # Initialize extensions
 db.init_app(app)
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
 
-
 # User loader for Flask-Login
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
-
 
 # Registration form
 class RegistrationForm(FlaskForm):
@@ -34,17 +28,14 @@ class RegistrationForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])
     password = PasswordField('Password', validators=[DataRequired(), Length(min=6, max=100)])
 
-
 # Login form
 class LoginForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])
     password = PasswordField('Password', validators=[DataRequired()])
 
-
 @app.route('/')
 def home():
     return render_template('home.html')
-
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -58,7 +49,6 @@ def register():
         return redirect(url_for('login'))
     return render_template('register.html', form=form)
 
-
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
@@ -70,19 +60,16 @@ def login():
         flash('Login failed. Check your email and/or password.', 'danger')
     return render_template('login.html', form=form)
 
-
 @app.route('/logout')
 @login_required
 def logout():
     logout_user()
     return redirect(url_for('home'))
 
-
 @app.route('/products')
 def product_list():
     products = Product.query.all()
     return render_template('product_list.html', products=products)
-
 
 @app.route('/add_to_cart/<int:product_id>', methods=['POST'])
 @login_required
@@ -98,14 +85,11 @@ def add_to_cart(product_id):
     flash(f'{product.name} added to your cart.', 'success')
     return redirect(url_for('product_list'))
 
-
 @app.route('/cart')
 @login_required
 def cart():
     cart_items = Cart.query.filter_by(user_id=current_user.id).all()
     return render_template('cart.html', cart_items=cart_items)
 
-
 if __name__ == "__main__":
     app.run(debug=True)
-
