@@ -11,6 +11,10 @@ from config import Config
 # Initialize the Flask app
 app = Flask(__name__)
 app.config.from_object(Config)
+from flask_migrate import Migrate
+
+# Initialize Flask-Migrate
+migrate = Migrate(app, db)
 
 # Initialize extensions
 db.init_app(app)
