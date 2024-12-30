@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Cart</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <h1>Your Cart</h1>
+    <div>
+        {% for item in cart_items %}
+            <div>
+                <h3>{{ item.product.name }}</h3>
+                <p>Price: ${{ item.product.price }}</p>
+                <p>Quantity: {{ item.quantity }}</p>
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
+
