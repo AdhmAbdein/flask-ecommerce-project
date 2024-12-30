@@ -27,7 +27,7 @@ spec:
               value: "1234"
             - name: POSTGRE_DB
               value: "ecommerce_db"
-          volumeMount:
+          volumeMounts:
             - name: ecomm-vol
               mountPath: /data 
       volumes:
