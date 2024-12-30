@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: flask-ecomm-deploy
+  labels:
+    ecomm: flask
+spec:
+  replicas: 3
+  selector:
+    matchLabels:  
+      ecomm: flask
+  template:
+    metadata:
+      name: pod-flask-ecomm
+      labels:
+        ecomm: flask
+    spec: 
+      containers:
+        - name: pod-flask
+          image: adhmabdein/myflaskecommimg
+          ports:
+            - containerPort: 5000
+          env:
+            - name: POSTGRES_USER
+              value: "adham"
+            - name: POSTGRE_PASSWORD
+              value: "1234"
+            - name: POSTGRES_DB
+              value: "ecommerce_db"
+            - name: POSTGRES_HOST 
+              value: "postgres-service-ecommerce"   

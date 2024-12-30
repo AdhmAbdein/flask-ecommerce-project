@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres-ecomm-deploy
+  labels:
+    ecomm: deploy
+spec: 
+  replicas: 3
+  selector:
+    matchLabels:
+      ecomm: deploy
+  template:
+    metadata:
+      name: pod-ecomm
+      labels:
+        ecomm: deploy
+    spec:
+      containers:
+        - name: cont-ecomm
+          image: postgres:13
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRE_USER
+              value: "adham"
+            - name: POSTGRE_PASSWORD
+              value: "1234"
+            - name: POSTGRE_DB
+              value: "ecommerce_db"
+          volumeMount:
+            - name: ecomm-vol
+              mountPath: /data 
+      volumes:
+        - name: ecomm-vol
+          persistentVolumeClaim:
+            claimName: postgres-ecomm-pvc        
