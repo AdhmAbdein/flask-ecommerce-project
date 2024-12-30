@@ -23,7 +23,7 @@ spec:
           env:
             - name: POSTGRES_USER
               value: "adham"
-            - name: POSTGRE_PASSWORD
+            - name: POSTGRES_PASSWORD
               value: "1234"
             - name: POSTGRES_DB
               value: "ecommerce_db"
