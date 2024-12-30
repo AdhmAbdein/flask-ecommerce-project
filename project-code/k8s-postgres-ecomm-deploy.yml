@@ -29,7 +29,7 @@ spec:
               value: "ecommerce_db"
           volumeMounts:
             - name: ecomm-vol
-              mountPath: /var/lib/postgresql/data
+              mountPath: /data
       volumes:
         - name: ecomm-vol
           persistentVolumeClaim:
