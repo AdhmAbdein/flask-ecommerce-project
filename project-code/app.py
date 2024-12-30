@@ -52,9 +52,6 @@ def register():
         db.session.commit()
         flash('Registration successful! Please log in.', 'success')
         return redirect(url_for('login'))
-    else:
-        if request.method == 'POST':  # Debugging form submission
-            print("Form submission failed:", form.errors)
     return render_template('register.html', form=form)
 
 
