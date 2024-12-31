@@ -12,12 +12,14 @@ class User(UserMixin, db.Model):
     cart = db.relationship('Cart', backref='owner', lazy=True)
 
 class Product(db.Model):
+     __tablename__ = 'product'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
     price = db.Column(db.Float, nullable=False)
     description = db.Column(db.String(200), nullable=True)
 
 class Cart(db.Model):
+    __tablename__ = 'cart'
     id = db.Column(db.Integer, primary_key=True)
     quantity = db.Column(db.Integer, nullable=False, default=1)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
